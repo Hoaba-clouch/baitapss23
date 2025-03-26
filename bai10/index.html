@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let numbers = [];
+function isPrime(num) {
+    if (num < 2) return false;
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+    }
+    return true;
+}
+function showMenu() {
+    let choice;
+    do {
+        choice = parseInt(prompt(
+            `================== MENU ===================
+1. Nhập số phần tử cần nhập và giá trị các phần tử
+2. In ra giá trị các phần tử đang quản lý
+3. In ra các phần tử chẵn, tính tổng và sắp xếp giảm dần
+4. In ra giá trị lớn nhất, nhỏ nhất và vị trí của chúng
+5. In ra các số nguyên tố trong mảng và tính tổng
+6. Nhập một số và đếm số lần xuất hiện trong mảng
+7. Thêm một phần tử vào vị trí chỉ định
+8. Xóa một phần tử theo giá trị
+9. Sắp xếp mảng theo thứ tự tăng dần hoặc giảm dần
+0. Thoát
+============================================
+Lựa chọn của bạn:`));
+        switch (choice) {
+            case 1:
+                let n = parseInt(prompt("Nhập số phần tử của mảng:"));
+                numbers = [];
+                for (let i = 0; i < n; i++) {
+                    numbers.push(parseInt(prompt(`Nhập phần tử thứ ${i + 1}:`)));
+                }
+                alert("Mảng đã được nhập xong!");
+                break;
+            case 2:
+                alert(`Mảng hiện tại: ${numbers.join(", ")}`);
+                break;
+            case 3:
+                let evenNumbers = numbers.filter(num => num % 2 === 0);
+                let evenSum = evenNumbers.reduce((a, b) => a + b, 0);
+                evenNumbers.sort((a, b) => b - a);
+                alert(`Số chẵn: ${evenNumbers.join(", ")}\nTổng: ${evenSum}`);
+                break;
+            case 4:
+                let max = Math.max(...numbers);
+                let min = Math.min(...numbers);
+                alert(`Giá trị lớn nhất: ${max}, vị trí: ${numbers.indexOf(max)}Giá trị nhỏ nhất: ${min}, vị trí: ${numbers.indexOf(min)}`);
+                break;
+            case 5:
+                let primes = numbers.filter(num => isPrime(num));
+                let primeSum = primes.reduce((a, b) => a + b, 0);
+                alert(`Số nguyên tố: ${primes.join(", ")}\nTổng: ${primeSum}`);
+                break;
+            case 6:
+                let numToCount = parseInt(prompt("Nhập số cần đếm:"));
+                let count = numbers.filter(num => num === numToCount).length;
+                alert(`Số ${numToCount} xuất hiện ${count} lần.`);
+                break;
+            case 7:
+                let newElement = parseInt(prompt("Nhập số cần thêm:"));
+                let position = parseInt(prompt("Nhập vị trí thêm (bắt đầu từ 0):"));
+                numbers.splice(position, 0, newElement);
+                alert(`Mảng sau khi thêm: ${numbers.join(", ")}`);
+                break;
+            case 8:
+                let numToDelete = parseInt(prompt("Nhập số cần xóa:"));
+                numbers = numbers.filter(num => num !== numToDelete);
+                alert(`Mảng sau khi xóa ${numToDelete}: ${numbers.join(", ")}`);
+                break;
+            case 9:
+                let sortOrder = prompt("Nhập 'asc' để sắp xếp tăng dần, 'desc' để giảm dần:");
+                if (sortOrder === "asc") {
+                    numbers.sort((a, b) => a - b);
+                } else if (sortOrder === "desc") {
+                    numbers.sort((a, b) => b - a);
+                }
+                alert(`Mảng sau khi sắp xếp: ${numbers.join(", ")}`);
+                break;
+            case 0:
+                alert("Thoát chương trình!");
+                break;
+            default:
+                alert("Lựa chọn không hợp lệ, vui lòng thử lại!");
+        }
+    } while (choice !== 0);
+}
+showMenu();
+    </script>
+</body>
+</html>

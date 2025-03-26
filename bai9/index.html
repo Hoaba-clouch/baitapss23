@@ -6,6 +6,112 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <script>
+        function main() {
+    let arr = [];
+    let choice;
+
+    do {
+        choice = parseInt(prompt(
+            "================== MENU ===================\n" +
+            "1. Nhập số phần tử cần nhập và giá trị các phần tử\n" +
+            "2. In ra giá trị các phần tử đang quản lý\n" +
+            "3. In ra giá trị các phần tử chẵn và tính tổng\n" +
+            "4. In ra giá trị lớn nhất và nhỏ nhất trong mảng\n" +
+            "5. In ra các phần tử là số nguyên tố trong mảng và tính tổng\n" +
+            "6. Nhập vào một số và thống kê trong mảng có bao nhiêu phần tử đó\n" +
+            "7. Thêm một phần tử vào vị trí chỉ định\n" +
+            "8. Thoát\n" +
+            "============================================\n" +
+            "Lựa chọn của bạn: "
+        ));
+
+        switch (choice) {
+            case 1:
+                nhapMang();
+                break;
+            case 2:
+                inMang();
+                break;
+            case 3:
+                inSoChanVaTinhTong();
+                break;
+            case 4:
+                timMaxMin();
+                break;
+            case 5:
+                inSoNguyenToVaTinhTong();
+                break;
+            case 6:
+                thongKePhanTu();
+                break;
+            case 7:
+                themPhanTu();
+                break;
+            case 8:
+                alert("Thoát chương trình!");
+                break;
+            default:
+                alert("Lựa chọn không hợp lệ. Vui lòng nhập lại!");
+        }
+    } while (choice !== 8);
+    function nhapMang() {
+        let n = parseInt(prompt("Nhập số phần tử của mảng: "));
+        if (n <= 0) {
+            alert("Số phần tử phải lớn hơn 0!");
+            return;
+        }
+        arr = [];
+        for (let i = 0; i < n; i++) {
+            arr.push(parseInt(prompt(`Nhập phần tử thứ ${i + 1}: `)));
+        }
+    }
+    function inMang() {
+        alert("Mảng hiện tại: " + arr.join(", "));
+    }
+    function inSoChanVaTinhTong() {
+        let soChan = arr.filter(num => num % 2 === 0);
+        let tong = soChan.reduce((sum, num) => sum + num, 0);
+        alert(`Các số chẵn: ${soChan.join(", ")}\nTổng: ${tong}`);
+    }
+    function timMaxMin() {
+        if (arr.length === 0) {
+            alert("Mảng rỗng!");
+            return;
+        }
+        let max = Math.max(...arr);
+        let min = Math.min(...arr);
+        alert(`Số lớn nhất: ${max}\nSố nhỏ nhất: ${min}`);
+    }
+    function inSoNguyenToVaTinhTong() {
+        function isPrime(num) {
+            if (num < 2) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+        let soNguyenTo = arr.filter(num => isPrime(num));
+        let tong = soNguyenTo.reduce((sum, num) => sum + num, 0);
+        alert(`Các số nguyên tố: ${soNguyenTo.join(", ")}\nTổng: ${tong}`);
+    }
+    function thongKePhanTu() {
+        let x = parseInt(prompt("Nhập số cần thống kê: "));
+        let count = arr.filter(num => num === x).length;
+        alert(`Số ${x} xuất hiện ${count} lần trong mảng`);
+    }
+    function themPhanTu() {
+        let num = parseInt(prompt("Nhập giá trị phần tử cần thêm: "));
+        let index = parseInt(prompt("Nhập vị trí cần thêm (0 - " + arr.length + "): "));
+        if (index < 0 || index > arr.length) {
+            alert("Vị trí không hợp lệ!");
+            return;
+        }
+        arr.splice(index, 0, num);
+        alert("Mảng sau khi thêm: " + arr.join(", "));
+    }
+}
+main();
+    </script>
 </body>
 </html>
